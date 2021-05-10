@@ -1,0 +1,98 @@
+harness void arbitrary_length(int n, int[n] x){
+   // sketch will try 0-length arrays, but this problem isn't really defined on them, so ignore them
+   if (n == 0){
+      return;
+   }
+
+   // get results
+   int testLen;
+   int[n] test = student_solution(n, x, testLen);
+   int actualLen;
+   int[n] actual = reference_solution(n, x, actualLen);
+
+   // check correctness
+   assert testLen == actualLen;
+   
+   for (int i = 0; i < actualLen; i++){
+      assert test[i] == actual[i];
+   }
+}
+
+// correct version
+int[n] reference_solution(int n, int[n] x, ref int output_len){
+   int[n] output;
+   
+   // if the number is a constant, return [0]
+   if (n == 1){
+      output[0] = 0;
+      output_len = 1;
+      return output;
+   }
+   
+   // otherwise, start at the 2nd term and build the result array
+   for (int i = 1; i < n; i++){
+      output[i - 1] = x[i] * i;
+   }
+
+   output_len = n - 1;
+   return output;
+}
+
+// student version
+int[n] student_solution(int n, int[n] x, ref int output_len){
+   int[n] output;
+   output_len = 0;
+   int zero = 0;
+   int appendIndex = 0;
+
+   if (condition1(n == 1)){
+      return returnValue1(n, output, output_len);
+   }
+
+   for (int i = rangeLowerValue(0); i < n; i++){
+      if (condition2(x[i] == 0)){
+	     zero++;
+	  }
+	  else{
+	     output[appendIndex++] = x[i] * i;
+	     output_len++;
+	  }
+   }
+
+   return returnValue2(n, output, output_len);
+}
+
+//possible errors
+bit condition1(bit x){
+   if (??) return x;
+   
+   return false;
+}
+
+bit condition2(bit x){
+   if (??) return x;
+   
+   return false;
+}
+
+int rangeLowerValue(int x){
+   if (??) return x;
+   
+   return x + 1;
+}
+
+int[n] returnValue1(int n, int[n] x, ref int return_length){
+   if (??) return x;
+   
+   x[0] = 0;
+   return_length = 1;
+   return x;
+}
+
+int[n] returnValue2(int n, int[n] x, ref int return_length){
+   if (??) return x;
+   
+   x[0] = 0;
+   return_length = 1;
+   return x;
+}
