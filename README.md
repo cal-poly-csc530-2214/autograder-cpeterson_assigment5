@@ -1,6 +1,6 @@
 # Assignment 5: Autograder by Christopher Peterson
 
-# Contents <a name="contents"></a>
+## Contents <a name="contents"></a>
 - [What I did](#what)
     - [Sketch setup + Hello World](#setup)
     - [Simplest autograded example](#simplest)
