@@ -232,7 +232,7 @@ int correctOperator(int x, int y){
 
 As expected, offByOne uses the ``x - 1`` version, correctOperator uses the ``+`` version, and offByOne2 requires no change. Interesetingly, this code takes a bit longer to run than previous tests, which makes sense as it's a bit more complicated.
 
-### Validating the author's results on computeDeriv submission a
+### Validating the author's results on computeDeriv submission A
 
 For the next step of my analysis, I wanted to apply the author's full and complete process to one of their examples. I chose to use the student submitted ``computeDeriv`` code from Figure 2 (a), since it was straightforward to implement in C, and explained further in Figure 4.
 
