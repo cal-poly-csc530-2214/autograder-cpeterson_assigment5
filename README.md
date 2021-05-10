@@ -106,3 +106,67 @@ void offByOne(int x, int& _out) {
 ```
 
 The function offByOne uses the ``x + 1`` output, as expected. This output file looks like it'd take a lot of extra time investment to automatically parse, so I'll be sticking to increasingly complex manual observations.
+
+### Checking for loop off-by-one errors and adding more corrections
+
+I wanted to apply what I had learned to something that could actually be useful and is a common error new programmers make: automatically checking for off-by-one errors in loop bounds. To do this, I used the previous offByOne error definitions applied to a program that adds one to each element in a loop:
+```
+harness void add_one_to_each(int[5] x){
+   // user code
+   int[5] next;
+   for (int i = offByOne(0); i < offByOne2(4); i++){
+      next[i] = x[i] + 1;
+   }
+
+   // check correctness
+   for (int i = 0; i < 5; i++){
+      assert next[i] == x[i] + 1;
+   }
+}
+
+int offByOne(int x){
+   if (??) return x;
+
+   return x + 1;
+}
+
+int offByOne2(int x){
+   if (??) return x;
+
+   return x + 1;
+}
+```
+
+Sparing the output file copy-paste, this works as expected. After being run through the Sketch solver, offByOne uses the originally supplied version (since a lower bound of 0 is correct), and offByOne2 uses the corrected version (since the upper bound should be 5).
+
+The next thing I wanted to do (although the paper doesn't go into a ton of detail about this, since they have the Python -> C++ conversion to worry about) is add multiple different corrections to the same original piece of code. In this case, I added both +1 and -1 as possible corrections to an off-by-one issue:
+```
+harness void add_one_to_each(int[5] x){
+   // user code
+   int[5] next;
+   for (int i = offByOne(1); i <= offByOne2(5); i++){
+      next[i] = x[i] + 1;
+   }
+
+   // check correctness
+   for (int i = 0; i < 5; i++){
+      assert next[i] == x[i] + 1;
+   }
+}
+
+int offByOne(int x){
+   if (??) return x;
+   if (??) return x - 1;
+
+   return x + 1;
+}
+
+int offByOne2(int x){
+   if (??) return x;
+   if (??) return x - 1;
+
+   return x + 1;
+}
+```
+
+It's reasonably easy to see that both offByOne's should return the ``x - 1`` version of their output, since the loop should start at 0 and stop at 4. The Sketch solver finds this answer, as well.
