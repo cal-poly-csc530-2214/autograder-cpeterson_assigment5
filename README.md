@@ -7,10 +7,20 @@
     - [Checking for loop off-by-one errors and adding more corrections](#offbyone)
     - [Generalized format, arbitrary list sizes, more errors](#arbitrary)
     - [Validating the author's results on computeDeriv submission A](#validating)
+- [Conclusion](#conclusion)
+- [Future work](#future)
 
 ## What I did <a name="what"></a>
 
-I focused the vast majority of my time on C++ program grading using the technique proposed by the authors. I thought the Python multitype conversion stuff was interesting, but tangential to the core concepts of the paper. With my limited time, I chose to explore these in more detail.
+I focused my efforts on examining the "Program Rewriter", "Sketch Translator", and "Sketch Solver" phases of the author's process (going from a reference program, student program, and list of possible errors to a corrected program). This seemed like the most interesting section of the analysis and also the best covered by our lectures.
+
+Instead of using Python programs, I examined native C++ ones. This allowed me to avoid all of the multi-type conversion overhead and focus my efforts on actually generating interesting conclusions/validating the author's claims. I didn't think much was *lost* by limiting my scope to autograding C++ programs (it's almost the same exact problem, just much more straightforward), so this seemed like an excellent simplification.
+
+In the approximately 5 hours I spent on this project, I:
+- Downloaded, installed, and learned how to use Sketch on my Windows system
+- Manually ran through the autograding parsing steps to get Sketch solver-ready versions of several progressively more complex example problems
+- Validated the author's exact process and results for Figure 2, student submission A
+- Understood the steps needed to further automate the process or modify it to work on Python programs
 
 ### Sketch setup + Hello World <a name="setup"></a>
 
@@ -364,3 +374,15 @@ rangeLowerValue: x + 1
 condition2: false
 returnValue2: x
 ```
+
+## Conclusion <a name="conclusion"></a>
+
+I really enjoyed working with this problem, paper, and framework. There's definitely limitations to it (notably the inability to insert code that is missing; the framework only seems to be able to modify values in existing code), but the results it produces are undeniably correct, and could definitely be helpful in some contexts. Even just the ability to check for common error cases (such as off-by-one errors) is interesting.
+
+## Future work <a name="future"></a>
+
+Many parts of this problem are still on the table, and with more time I would have looked into:
+- Performance on more complicated examples
+- Multi-type compatible programs
+- Automating the parsing + rewriting of programs (pretty large task)
+- Generating feedback from the Sketch solver changes
