@@ -377,7 +377,7 @@ returnValue2: x
 
 ## Conclusion <a name="conclusion"></a>
 
-I really enjoyed working with this problem, paper, and framework. There's definitely limitations to it (notably the inability to insert code that is missing; the framework only seems to be able to modify values in existing code), but the results it produces are undeniably correct, and could definitely be helpful in some contexts. Even just the ability to check for common error cases (such as off-by-one errors) is interesting.
+I really enjoyed working with this problem, paper, and framework. The framework was much more straightforward and more implement-able than the one we examined in Assignment 4. There's definitely limitations to it (notably the inability to insert code that is missing; the framework only seems to be able to modify values in existing code), but the results it produces are undeniably correct, and could definitely be helpful in some contexts. Even just the ability to check for common error cases (such as off-by-one errors) is interesting.
 
 ## Future work <a name="future"></a>
 
