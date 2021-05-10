@@ -1,10 +1,18 @@
 # Assignment 5: Autograder by Christopher Peterson
 
-## What I did
+# Contents <a name="contents"></a>
+- [What I did](#what)
+    - [Sketch setup + Hello World](#setup)
+    - [Simplest autograded example](#simplest)
+    - [Checking for loop off-by-one errors and adding more corrections](#offbyone)
+    - [Generalized format, arbitrary list sizes, more errors](#arbitrary)
+    - [Validating the author's results on computeDeriv submission A](#validating)
+
+## What I did <a name="what"></a>
 
 I focused the vast majority of my time on C++ program grading using the technique proposed by the authors. I thought the Python multitype conversion stuff was interesting, but tangential to the core concepts of the paper. With my limited time, I chose to explore these in more detail.
 
-### Sketch setup + Hello World
+### Sketch setup + Hello World <a name="setup"></a>
 
 It seems like most of the heavy-lifting for this assignment was being done in Sketch, and getting any concrete results (other than Python -> Sketch translation, which was an option but is ultimately nothing I haven't already done) would require its use.
 
@@ -59,7 +67,7 @@ extern void doubleSketch(int x);
 
 As someone who is new to using Sketch, this seemed like a strange (but technically correct) result. I was expecting the result to be in the same form as the original code, but with the ?? replaced. Seeing the code entirely remove the ``int t = x * ??`` line was concerning.
 
-### Simplest autograded example
+### Simplest autograded example <a name="simplest"></a>
 
 After working out the basics of Sketch syntax, I created something that began to resemble the form found in the paper:
 ```
@@ -107,7 +115,7 @@ void offByOne(int x, int& _out) {
 
 The function offByOne uses the ``x + 1`` output, as expected. This output file looks like it'd take a lot of extra time investment to automatically parse, so I'll be sticking to increasingly complex manual observations.
 
-### Checking for loop off-by-one errors and adding more corrections
+### Checking for loop off-by-one errors and adding more corrections <a name="offbyone"></a>
 
 I wanted to apply what I had learned to something that could actually be useful and is a common error new programmers make: automatically checking for off-by-one errors in loop bounds. To do this, I used the previous offByOne error definitions applied to a program that adds one to each element in a loop:
 ```
@@ -171,7 +179,7 @@ int offByOne2(int x){
 
 It's reasonably easy to see that both offByOne's should return the ``x - 1`` version of their output, since the loop should start at 0 and stop at 4. The Sketch solver finds this answer, as well.
 
-### Generalized format, arbitrary list sizes, more errors
+### Generalized format, arbitrary list sizes, more errors <a name="arbitrary"></a>
 
 Before implementing the author's example (polynomial derivatives), I had to add a few more pieces to my analysis. This performs the same operation as before (adding one to each element of a list), but is a little more generalized. Additionally, I've added an error case to check if the user is using the right operator. This was surprisingly annoying to get right with the lack of Sketch documentation, but eventually I realized it works when ``--bnd-unroll-amnt`` is set to a very large number:
 ```
@@ -232,7 +240,7 @@ int correctOperator(int x, int y){
 
 As expected, offByOne uses the ``x - 1`` version, correctOperator uses the ``+`` version, and offByOne2 requires no change. Interesetingly, this code takes a bit longer to run than previous tests, which makes sense as it's a bit more complicated.
 
-### Validating the author's results on computeDeriv submission A
+### Validating the author's results on computeDeriv submission A <a name="validating"></a>
 
 For the next step of my analysis, I wanted to apply the author's full and complete process to one of their examples. I chose to use the student submitted ``computeDeriv`` code from Figure 2 (a), since it was straightforward to implement in C, and explained further in Figure 4.
 
