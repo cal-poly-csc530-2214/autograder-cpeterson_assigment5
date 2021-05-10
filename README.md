@@ -170,3 +170,64 @@ int offByOne2(int x){
 ```
 
 It's reasonably easy to see that both offByOne's should return the ``x - 1`` version of their output, since the loop should start at 0 and stop at 4. The Sketch solver finds this answer, as well.
+
+### Generalized format, arbitrary list sizes, more errors
+
+Before implementing the author's example (polynomial derivatives), I had to add a few more pieces to my analysis. This performs the same operation as before (adding one to each element of a list), but is a little more generalized. Additionally, I've added an error case to check if the user is using the right operator. This was surprisingly annoying to get right with the lack of Sketch documentation, but eventually I realized it works when ``--bnd-unroll-amnt`` is set to a very large number:
+```
+harness void arbitrary_length(int n, int[n] x){
+   // get results
+   int[n] test = student_solution(n, x);
+   int[n] actual = reference_solution(n, x);
+
+   // check correctness
+   for (int i = 0; i < n; i++){
+      assert test[i] == actual[i];
+   }
+}
+
+// correct version
+int[n] reference_solution(int n, int[n] x){
+   int[n] results;
+   for (int i = 0; i < n; i++){
+      results[i] = x[i] + 1;
+   }
+   
+   return results;
+}
+
+// student version
+int[n] student_solution(int n, int[n] x){
+   int[n] results;
+   for (int i = offByOne(1); i < n; i++){
+      results[i] = correctOperator(x[i], offByOne2(1));
+   }
+   
+   return results;
+}
+
+//possible errors
+int offByOne(int x){
+   if (??) return x;
+   if (??) return x - 1;
+
+   return x + 1;
+}
+
+int offByOne2(int x){
+   if (??) return x;
+   if (??) return x - 1;
+
+   return x + 1;
+}
+
+int correctOperator(int x, int y){
+   if (??) return x - y;
+   if (??) return x + y;
+   if (??) return x * y;
+   
+   return x / y;
+}
+```
+
+As expected, offByOne uses the ``x - 1`` version, correctOperator uses the ``+`` version, and offByOne2 requires no change. Interesetingly, this code takes a bit longer to run than previous tests, which makes sense as it's a bit more complicated.
