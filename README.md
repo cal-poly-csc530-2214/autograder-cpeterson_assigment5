@@ -76,7 +76,7 @@ int offByOne(int x){
 }
 ```
 
-This program is essentially asking Sketch if the second x of the student's code ``int t = x * x`` should be replaced with ``x + 1``. The answer to this question is obviously yes, which Sketch is able to find:
+This program is essentially asking Sketch if the second ``x`` of the student's code ``int t = x * x`` should be replaced with ``x + 1``. The answer to this question is obviously yes, which Sketch is able to find:
 ```
 #include <cstdio>
 #include <assert.h>
