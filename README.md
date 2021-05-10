@@ -105,4 +105,4 @@ void offByOne(int x, int& _out) {
 }
 ```
 
-The function offByOne uses the ``x + 1`` output, as expected.
+The function offByOne uses the ``x + 1`` output, as expected. This output file looks like it'd take a lot of extra time investment to automatically parse, so I'll be sticking to increasingly complex manual observations.
