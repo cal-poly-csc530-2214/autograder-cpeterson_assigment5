@@ -6,7 +6,7 @@ I focused the vast majority of my time on C++ program grading using the techniqu
 
 ### Sketch setup + Hello World
 
-It seems like most of the heavy-lifting for this assignment was being done in Sketch, and getting any concrete results (other than python -> Sketch translation, which was an option but is ultimately nothing I haven't already done) would require its use.
+It seems like most of the heavy-lifting for this assignment was being done in Sketch, and getting any concrete results (other than Python -> Sketch translation, which was an option but is ultimately nothing I haven't already done) would require its use.
 
 I spent around an hour and a half installing Sketch and learning how it works. This was mostly challenging because I was using Windows, but also difficult due to the sparse documentation.
 
