@@ -1,0 +1,11 @@
+harness void doubleSketch(int x){
+   int t = x * offByOne(x);
+
+   assert t == x * x + x;
+}
+
+int offByOne(int x){
+   if (??) return x;
+
+   return x + 1;
+}
