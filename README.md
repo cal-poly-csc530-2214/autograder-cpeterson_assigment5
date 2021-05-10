@@ -55,4 +55,4 @@ extern void doubleSketch(int x);
 #endif
 ```
 
-As someone who is new to using Sketch, this seemed like a strange (but technically correct) result. I was expecting the result to be in the same form as the original code, but with the ?? removed.
+As someone who is new to using Sketch, this seemed like a strange (but technically correct) result. I was expecting the result to be in the same form as the original code, but with the ?? replaced. Seeing the code entirely remove the ``int t = x * ??`` line was concerning.
