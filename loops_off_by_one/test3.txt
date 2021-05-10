@@ -1,0 +1,24 @@
+harness void add_one_to_each(int[5] x){
+   // user code
+   int[5] next;
+   for (int i = offByOne(0); i < offByOne2(4); i++){
+      next[i] = x[i] + 1;
+   }
+
+   // check correctness
+   for (int i = 0; i < 5; i++){
+      assert next[i] == x[i] + 1;
+   }
+}
+
+int offByOne(int x){
+   if (??) return x;
+
+   return x + 1;
+}
+
+int offByOne2(int x){
+   if (??) return x;
+
+   return x + 1;
+}
