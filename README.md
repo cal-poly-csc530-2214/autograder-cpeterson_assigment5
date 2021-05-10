@@ -231,3 +231,128 @@ int correctOperator(int x, int y){
 ```
 
 As expected, offByOne uses the ``x - 1`` version, correctOperator uses the ``+`` version, and offByOne2 requires no change. Interesetingly, this code takes a bit longer to run than previous tests, which makes sense as it's a bit more complicated.
+
+### Validating the author's results on computeDeriv submission a
+
+For the next step of my analysis, I wanted to apply the author's full and complete process to one of their examples. I chose to use the student submitted ``computeDeriv`` code from Figure 2 (a), since it was straightforward to implement in C, and explained further in Figure 4.
+
+My reference soultion for ``computeDeriv`` looked like this. Without dynamically-sized lists in Sketch, I had to use and update the variable ``output_len``. This didn't turn out to be an issue:
+```
+// correct version
+int[n] reference_solution(int n, int[n] x, ref int output_len){
+   int[n] output;
+   
+   // if the number is a constant, return [0]
+   if (n == 1){
+      output[0] = 0;
+      output_len = 1;
+      return output;
+   }
+   
+   // otherwise, start at the 2nd term and build the result array
+   for (int i = 1; i < n; i++){
+      output[i - 1] = x[i] * i;
+   }
+
+   output_len = n - 1;
+   return output;
+}
+```
+
+The student solution (translated into C++) looked like this:
+```
+// student version
+int[n] student_solution(int n, int[n] x, ref int output_len){
+   int[n] output;
+   output_len = 0;
+   int zero = 0;
+   int appendIndex = 0;
+
+   if (n == 1){
+      return output;
+   }
+
+   for (int i = 0; i < n; i++){
+      if (x[i] == 0){
+	     zero++;
+	  }
+	  else{
+	     output[appendIndex++] = x[i] * i;
+	     output_len++;
+	  }
+   }
+
+   return output;
+}
+```
+
+After manually creating and substituting in the three possible errors described at the middle-bottom-left of Page 17:
+```
+// student version
+int[n] student_solution(int n, int[n] x, ref int output_len){
+   int[n] output;
+   output_len = 0;
+   int zero = 0;
+   int appendIndex = 0;
+
+   if (condition1(n == 1)){
+      return returnValue1(n, output, output_len);
+   }
+
+   for (int i = rangeLowerValue(0); i < n; i++){
+      if (condition2(x[i] == 0)){
+	     zero++;
+	  }
+	  else{
+	     output[appendIndex++] = x[i] * i;
+	     output_len++;
+	  }
+   }
+
+   return returnValue2(n, output, output_len);
+}
+
+//possible errors
+bit condition1(bit x){
+   if (??) return x;
+   
+   return false;
+}
+
+bit condition2(bit x){
+   if (??) return x;
+   
+   return false;
+}
+
+int rangeLowerValue(int x){
+   if (??) return x;
+   
+   return x + 1;
+}
+
+int[n] returnValue1(int n, int[n] x, ref int return_length){
+   if (??) return x;
+   
+   x[0] = 0;
+   return_length = 1;
+   return x;
+}
+
+int[n] returnValue2(int n, int[n] x, ref int return_length){
+   if (??) return x;
+   
+   x[0] = 0;
+   return_length = 1;
+   return x;
+}
+```
+
+The Sketch solver was able to correctly identify each version of the variables, in about 2 seconds of runtime:
+```
+condition1: x
+returnValue1: [0]
+rangeLowerValue: x + 1
+condition2: false
+returnValue2: x
+```
